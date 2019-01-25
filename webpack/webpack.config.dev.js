@@ -2,6 +2,7 @@ const Path = require('path');
 const Webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'development',
@@ -12,10 +13,14 @@ module.exports = merge(common, {
   devServer: {
     inline: true
   },
+  context: Path.join(__dirname, '../'),
   plugins: [
     new Webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('development')
-    })
+    }),
+    new CopyWebpackPlugin([
+        { from: 'static' }
+    ])
   ],
   module: {
     rules: [

@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+  branch: master
+
+media_folder: static/img
+public_folder: /img
+
+collections:
+  - name: presentations
+    label: Presentation
+    folder: presentations
+    slug: "{{slug}}"
+    create: true
+    fields:
+      - {label: Title, name: title, widget: string, tagname: ""}
+
+      - label: Theme
+        name: theme
+        widget: select
+        options:
+          - beige
+          - black
+          - blood
+          - league
+          - moon
+          - night
+          - serif
+          - simple
+          - sky
+          - solarized
+          - white
+
+      - label: Text
+        name: text
+        widget: mdInput

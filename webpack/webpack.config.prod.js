@@ -3,6 +3,7 @@ const Webpack = require('webpack');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = merge(common, {
   mode: 'production',
@@ -13,6 +14,7 @@ module.exports = merge(common, {
     filename: 'js/[name].[chunkhash:8].js',
     chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
   },
+  context: Path.join(__dirname, '../'),
   plugins: [
     new Webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
@@ -20,7 +22,10 @@ module.exports = merge(common, {
     new Webpack.optimize.ModuleConcatenationPlugin(),
     new MiniCssExtractPlugin({
       filename: 'bundle.css'
-    })
+    }),
+    new CopyWebpackPlugin([
+        { from: 'static' }
+    ])
   ],
   module: {
     rules: [
